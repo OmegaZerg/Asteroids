@@ -13,6 +13,7 @@ def main():
     updatable = pygame.sprite.Group() # holds objects that need to be updated each frame
     drawable = pygame.sprite.Group() # holds objects that need to be drawn each frame
     asteroids = pygame.sprite.Group() # holds the asteroid objects
+    bullets = pygame.sprite.Group() # holds player bullets
     Player.containers = (updatable, drawable)
     Asteroid.containers = (updatable, drawable, asteroids)
     AsteroidField.containers = (updatable)
@@ -37,6 +38,14 @@ def main():
         for obj in asteroids:
             if player.is_collision(obj):
                 sys.exit("Game over man!")
+
+        # Check for shots fired
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_SPACE]:
+            player.shoot(bullets)
+        for bullet in bullets:
+            bullet.update(dt)
+            bullet.draw(screen)
 
         pygame.display.flip()
         
