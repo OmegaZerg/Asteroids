@@ -6,7 +6,6 @@ class Shot(CircleShape):
         super().__init__(x, y, radius)
         self.color = (255, 255, 255)
         
-    print("SHOOTING")
     def draw(self, screen):
         pygame.draw.circle(screen, self.color, self.position, self.radius, width=2)
 

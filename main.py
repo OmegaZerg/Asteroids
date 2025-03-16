@@ -26,20 +26,20 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-        # clear screen before drawing
+        #Clear screen before drawing
         screen.fill((0, 0, 0)) # RGB
         
-        # Update and draw
+        #Update and draw
         updatable.update(dt)
         for obj in drawable:
             obj.draw(screen)
         
-        # Check for collisions
+        #Check for collisions
         for obj in asteroids:
             if player.is_collision(obj):
                 sys.exit("Game over man!")
 
-        # Check for shots fired
+        #Check for shots fired
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE]:
             player.shoot(bullets)
@@ -49,7 +49,7 @@ def main():
 
         pygame.display.flip()
         
-        #limit the framerate to 60 FPS
+        #Limit the framerate to 60 FPS
         dt = fps_clock.tick(60)/1000
 
     
