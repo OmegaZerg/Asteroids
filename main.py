@@ -3,11 +3,14 @@ from constants import *
 from player import Player
 
 def main():
-    pygame.init
+    pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     fps_clock = pygame.time.Clock()
-    player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, PLAYER_RADIUS)
     dt = 0
+    updatable = pygame.sprite.Group() # holds objects that need to be updated each frame
+    drawable = pygame.sprite.Group() # holds objects that need to be drawn each frame
+    Player.containers = (updatable, drawable)
+    player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, PLAYER_RADIUS)
 
     loop = True
 
@@ -15,9 +18,14 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-        player.update(dt)
-        screen.fill(000)
-        player.draw(screen)
+        # clear screen before drawing
+        screen.fill((0, 0, 0)) # RGB
+        
+        # Update and draw
+        updatable.update(dt)
+        for obj in drawable:
+            obj.draw(screen)
+        
         
         pygame.display.flip()
         
